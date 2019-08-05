@@ -5,6 +5,7 @@ import {
 	IButtonProps,
 	ICommandBarItemProps
 } from 'office-ui-fabric-react';
+import { getTags } from 'common/tags';
 
 const createNavItem = (name: string, iconName: string) => ({
 	key: name,
@@ -76,17 +77,14 @@ class CommandBar extends React.Component {
 		const name = 'Tags';
 		const iconName = 'Tag';
 		const onClick = () => {};
-		const tags = [
-			createNavItem('后端', 'ServerEnviroment'),
-			createNavItem('typescript', 'TypeScriptLanguage'),
-			createNavItem('web', 'Website'),
-			createNavItem('短文', 'Articles')
-		];
+		const items = getTags().map(({ name, iconName }) =>
+			createNavItem(name, iconName)
+		);
 
 		return {
 			...createNavItem(name, iconName),
 			onClick,
-			subMenuProps: { items: tags }
+			subMenuProps: { items }
 		};
 	};
 
