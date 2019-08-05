@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, Separator, IStackTokens, Link } from 'office-ui-fabric-react';
 import { PaperInfos } from './bar';
+import { Page } from './page';
 
 const props: IStackTokens = {
 	childrenGap: 10,
@@ -43,13 +44,16 @@ export class Home extends React.Component<{}, {}> {
 	public render = () => {
 		const { article } = styles;
 		return (
-			<article style={article}>
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-			</article>
+			<>
+				<article style={article}>
+					<Item />
+					<Item />
+					<Item />
+					<Item />
+					<Item />
+				</article>
+				<Page />
+			</>
 		);
 	};
 }
