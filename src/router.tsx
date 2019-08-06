@@ -1,8 +1,9 @@
 import React from 'react';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
-import './App.css';
 import { Home } from 'home';
+import { Paper } from './paper';
 import { NotFound } from './not-found';
+import './App.css';
 
 const Router: React.FC = () => {
 	return (
@@ -10,6 +11,7 @@ const Router: React.FC = () => {
 			<Switch>
 				<Redirect exact from="/" to="/home" />
 				<Route path="/home" component={Home} />
+				<Route path="/paper/:id" component={Paper} />
 				<Route component={NotFound} />
 			</Switch>
 		</HashRouter>
