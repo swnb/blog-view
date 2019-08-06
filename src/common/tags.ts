@@ -1,6 +1,6 @@
 export const getTags = () => [
 	{
-		name: '后端',
+		name: 'server',
 		iconName: "ServerEnviroment"
 	}, {
 		name: 'typescript',
@@ -9,7 +9,16 @@ export const getTags = () => [
 		name: 'web',
 		iconName: "Website"
 	}, {
-		name: '短文',
+		name: "network",
+		iconName: "World"
+	}, {
+		name: "database",
+		iconName: "Database"
+	}, {
+		name: 'article',
 		iconName: "Articles"
+	}, {
+		name: "program",
+		iconName: "KeyboardClassic",
 	}
 ];
