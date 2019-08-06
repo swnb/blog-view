@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SearchBox as FabricSearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { SearchBox as FabricSearchBox } from 'office-ui-fabric-react';
 
 const styles = {
 	root: { width: '30%', marginRight: 24, maxWidth: 300, minWidth: 100 }

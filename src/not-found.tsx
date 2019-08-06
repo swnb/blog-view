@@ -2,9 +2,9 @@ import * as React from 'react';
 import {
 	Dialog,
 	DialogType,
-	DialogFooter
-} from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+	DialogFooter,
+	PrimaryButton
+} from 'office-ui-fabric-react';
 import { redirect } from 'common';
 
 interface NotFoundState {

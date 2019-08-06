@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { CommandBarButton } from 'office-ui-fabric-react/lib/Button';
 import { getTags } from 'common/tags';
-import { TagPicker } from 'office-ui-fabric-react';
+import { CommandBarButton } from 'office-ui-fabric-react';
 
 const tagItemsFilter = (tags: string[]) =>
 	getTags()

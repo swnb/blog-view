@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	Pivot,
-	PivotItem,
-	PivotLinkFormat,
-	PivotLinkSize
-} from 'office-ui-fabric-react/lib/Pivot';
+import { Pivot, PivotItem, PivotLinkFormat } from 'office-ui-fabric-react';
 
 export class Page extends React.Component {
 	public render = () => {
