@@ -9,7 +9,7 @@ import {
 	MessageBar
 } from 'office-ui-fabric-react';
 import { match } from 'react-router';
-import { Loading } from 'common';
+import { Loading, redirect } from 'common';
 
 const Code = React.lazy(() =>
 	import('./code').then(({ Code, Pre }) => ({ default: Code }))
@@ -178,20 +178,15 @@ export class Paper extends React.Component<PaperProps, PaperState> {
 		structure: [] as PaperStructure[]
 	};
 
-	public componentDidMount = () => {
+	public componentWillMount = async () => {
 		const paperID = this.props.match.params.id;
-		queryPaperContent(paperID).then(structure => {
-			this.setState(
-				{
-					structure
-				},
-				() => {
-					this.setState({
-						isReady: true
-					});
-				}
-			);
-		});
+		try {
+			const structure = await queryPaperContent(paperID);
+			this.setState({ structure, isReady: true });
+		} catch (error) {
+			console.error(error);
+			redirect('/not-found');
+		}
 	};
 
 	public render = () => {

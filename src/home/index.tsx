@@ -72,13 +72,14 @@ export class Home extends React.Component<{}, HomeState> {
 		papers: [] as PaperInfo[]
 	};
 
-	public componentDidMount = () => {
-		queryPaperInfos(1).then(papers => {
-			console.log(papers);
-			this.setState({
-				papers
-			});
-		});
+	public componentDidMount = async () => {
+		try {
+			const papers = await queryPaperInfos(1);
+			this.setState({ papers });
+		} catch (error) {
+			console.error(error);
+			redirect('/not-found');
+		}
 	};
 
 	public render = () => {
