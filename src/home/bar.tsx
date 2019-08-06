@@ -1,42 +1,57 @@
 import * as React from 'react';
-import {
-	CommandBarButton,
-	IButtonProps
-} from 'office-ui-fabric-react/lib/Button';
+import { CommandBarButton } from 'office-ui-fabric-react/lib/Button';
 import { getTags } from 'common/tags';
+import { TagPicker } from 'office-ui-fabric-react';
 
-const tagItems = getTags().map(({ name, iconName }) => ({
-	key: name,
-	text: name,
-	iconProps: {
-		iconName
-	}
-}));
+const tagItemsFilter = (tags: string[]) =>
+	getTags()
+		.filter(({ name }) => tags.includes(name))
+		.map(({ name, iconName }) => ({
+			key: name,
+			text: name,
+			iconProps: { iconName }
+		}));
 
-export class PaperInfos extends React.Component {
-	public render(): JSX.Element {
-		const alertClicked = (): void => {
-			alert('Clicked');
-		};
+const trackItems = (tracks: string[]) =>
+	tracks.map(record => ({
+		key: record,
+		text: record
+	}));
+
+interface PaperInfoBarProps {
+	tags: string[];
+	tracks: string[];
+}
+export class PaperInfoBar extends React.Component<PaperInfoBarProps, {}> {
+	public render = () => {
+		const {
+			props: { tags, tracks }
+		} = this;
+
 		return (
 			<div style={{ display: 'flex', alignItems: 'stretch', height: '44px' }}>
 				<CommandBarButton iconProps={{ iconName: 'DateTime' }} text="date" />
 				<CommandBarButton
 					iconProps={{ iconName: 'Trackers' }}
-					text="track"
-					onClick={alertClicked}
+					text="record"
+					disabled={tracks.length === 0}
 					menuProps={{
-						items: []
+						items: trackItems(tracks)
 					}}
 				/>
 				<CommandBarButton
 					iconProps={{ iconName: 'Tag' }}
 					text="tags"
+					disabled={tags.length === 0}
 					menuProps={{
-						items: []
+						items: tagItemsFilter(tags)
 					}}
+				/>
+				<CommandBarButton
+					iconProps={{ iconName: 'PreviewLink' }}
+					text="preview"
 				/>
 			</div>
 		);
-	}
+	};
 }
