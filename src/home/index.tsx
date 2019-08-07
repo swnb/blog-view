@@ -1,11 +1,10 @@
 import React from 'react';
 import { Text, Separator, Link } from 'office-ui-fabric-react';
-import { redirect } from 'common';
 import { PaperInfoBar } from './bar';
 import { Page } from './page';
 import { queryPaperInfos, PaperInfo } from 'services';
-import { styles as commonStyles } from 'common';
-import { dataStore as navigationDataStore } from 'breadcrumb/index';
+import { redirect, styles as commonStyles } from 'common';
+import { dataStore as navigationDataStore } from 'breadcrumb';
 
 interface TitleProps {
 	text: string;
@@ -56,16 +55,17 @@ const Item = ({
 	tags
 }: ItemProps) => {
 	return (
-		<>
+		<section style={{ marginBottom: '20px' }}>
 			<Title text={title} link={`/paper/${id}`} />
 			<PaperInfoBar tags={tags} tracks={change_records} />
 			<Text>`some content is simple to see how to do this works `</Text>
-		</>
+		</section>
 	);
 };
 
 interface HomeState {
 	papers: PaperInfo[];
+	pageSize: number;
 }
 export class Home extends React.Component<{}, HomeState> {
 	private styles = {
@@ -74,24 +74,20 @@ export class Home extends React.Component<{}, HomeState> {
 		}
 	};
 
-	public state = {
-		papers: [] as PaperInfo[]
+	public state: HomeState = {
+		papers: [],
+		pageSize: 0
 	};
 
-	public componentDidMount = async () => {
-		try {
-			const { paper_info_list: papers } = await queryPaperInfos(1);
-			this.setState({ papers });
-		} catch (error) {
-			console.error(error);
-			redirect('/not-found');
-		}
+	public componentWillMount = async () => {
+		await this.setPapersWithPageIndex(1);
 	};
 
 	public render = () => {
 		const {
 			styles: { article },
-			state: { papers }
+			state: { papers, pageSize },
+			setPapersWithPageIndex
 		} = this;
 
 		return (
@@ -101,8 +97,21 @@ export class Home extends React.Component<{}, HomeState> {
 						<Item {...ele} key={ele.id} />
 					))}
 				</article>
-				<Page />
+				<Page onPageSelected={setPapersWithPageIndex} size={pageSize} />
 			</>
 		);
+	};
+
+	private setPapersWithPageIndex = async (index: number) => {
+		try {
+			const {
+				paper_info_list: papers,
+				page_size: pageSize
+			} = await queryPaperInfos(index);
+			this.setState({ papers, pageSize });
+		} catch (error) {
+			console.error(error);
+			redirect('/not-found');
+		}
 	};
 }
