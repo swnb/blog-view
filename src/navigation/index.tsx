@@ -46,17 +46,26 @@ function type2redirect({ type, value, paperLink }: NavigationType) {
 	}
 }
 
+const getInitData = (): NavigationType => {
+	let initData = dataStore.get();
+	return initData
+		? initData
+		: {
+				type: 'Init',
+				value: ''
+		  };
+};
+
 function useNavigationData() {
-	const [navigationData, setNavigationData] = React.useState({
-		type: 'Init',
-		value: ''
-	} as NavigationType);
+	const [navigationData, setNavigationData] = React.useState(getInitData());
+	const scope = dataStore.clone();
 	React.useEffect(() => {
-		dataStore.subscribe(navigationData => {
+		setNavigationData(getInitData());
+		scope.subscribe(navigationData => {
 			setNavigationData(navigationData);
 		});
 		return () => {
-			dataStore.unSubscribe();
+			scope.unSubscribe();
 		};
 	}, [navigationData]);
 	type2redirect(navigationData);
