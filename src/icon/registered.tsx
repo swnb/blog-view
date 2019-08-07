@@ -11,6 +11,7 @@ registerIcons({
 					width: '23px',
 					height: '23px'
 				}}
+				alt="icon"
 			/>
 		)
 	}

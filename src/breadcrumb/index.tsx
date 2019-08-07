@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-	Breadcrumb,
-	IBreadcrumbItem,
-	TooltipHost,
-	IDividerAsProps,
-	Separator
-} from 'office-ui-fabric-react';
+import { Breadcrumb, Separator } from 'office-ui-fabric-react';
 import { Store } from 'store';
 import { styles as commonStyles, redirect } from 'common';
 
