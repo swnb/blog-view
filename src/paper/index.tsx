@@ -167,8 +167,7 @@ interface PaperState {
 export class Paper extends React.Component<PaperProps, PaperState> {
 	private styles = {
 		article: {
-			...commonStyles.body,
-			margin: 'auto'
+			...commonStyles.body
 		}
 	};
 

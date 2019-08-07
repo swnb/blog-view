@@ -3,7 +3,8 @@ import {
 	Breadcrumb,
 	IBreadcrumbItem,
 	TooltipHost,
-	IDividerAsProps
+	IDividerAsProps,
+	Separator
 } from 'office-ui-fabric-react';
 import { Store } from 'store';
 import { styles as commonStyles } from 'common';
@@ -46,21 +47,20 @@ const NavigationBar: React.FC = () => {
 	}
 
 	return (
-		<Breadcrumb
+		<Separator
 			styles={{
 				root: {
-					...commonStyles.body,
-					margin: '20px auto 0'
+					...commonStyles.navigationBar
 				}
 			}}
-			items={item}
-			maxDisplayedItems={2}
-			overflowIndex={0}
-			ariaLabel="Breadcrumb with maxDisplayedItems set to 2 and overflowIndex set to 1"
-			overflowAriaLabel="More links"
-		/>
+			alignContent="start"
+		>
+			<Breadcrumb onReduceData={returnUndefined} items={item} />
+		</Separator>
 	);
 };
+
+const returnUndefined = () => undefined;
 
 function _onBreadcrumbItemClicked(
 	ev?: React.MouseEvent<HTMLElement>,

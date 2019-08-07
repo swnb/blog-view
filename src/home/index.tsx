@@ -64,8 +64,7 @@ interface HomeState {
 export class Home extends React.Component<{}, HomeState> {
 	private styles = {
 		article: {
-			...commonStyles.body,
-			margin: 'auto'
+			...commonStyles.body
 		}
 	};
 
