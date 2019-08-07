@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { Breadcrumb, Separator } from 'office-ui-fabric-react';
+import {
+	Breadcrumb,
+	Separator,
+	IBreadcrumbProps
+} from 'office-ui-fabric-react';
 import { Store } from 'store';
 import { styles as commonStyles, redirect } from 'common';
 
@@ -11,14 +15,42 @@ interface NavigationType {
 
 export const dataStore = new Store<NavigationType>();
 
-function useNavigationData() {}
+function type2Item({ type, value }: NavigationType): IBreadcrumbProps['items'] {
+	switch (type) {
+		case 'Archive':
+		case 'Home': {
+			return [{ text: type, key: type }];
+		}
+		default: {
+			return [{ text: type, key: type }, { text: value, key: value }];
+		}
+	}
+}
 
-const NavigationBar: React.FC = () => {
+function type2redirect({ type, value, paperLink }: NavigationType) {
+	switch (type) {
+		case 'Paper': {
+			redirect(paperLink as string);
+			return;
+		}
+		case 'Tag': {
+			redirect(`/${type.toLowerCase()}/${value}`);
+			return;
+		}
+		case 'Init': {
+			return;
+		}
+		default: {
+			redirect(`/${type.toLowerCase()}`);
+		}
+	}
+}
+
+function useNavigationData() {
 	const [navigationData, setNavigationData] = React.useState({
 		type: 'Init',
 		value: ''
 	} as NavigationType);
-	const { type, value, paperLink } = navigationData;
 	React.useEffect(() => {
 		dataStore.subscribe(navigationData => {
 			setNavigationData(navigationData);
@@ -27,37 +59,12 @@ const NavigationBar: React.FC = () => {
 			dataStore.unSubscribe();
 		};
 	}, [navigationData]);
+	type2redirect(navigationData);
+	return type2Item(navigationData);
+}
 
-	let item;
-	switch (type) {
-		case 'Archive':
-		case 'Home': {
-			item = [{ text: type, key: type }];
-			break;
-		}
-		default: {
-			item = [{ text: type, key: type }, { text: value, key: value }];
-			break;
-		}
-	}
-
-	switch (type) {
-		case 'Paper': {
-			redirect(paperLink as string);
-			break;
-		}
-		case 'Tag': {
-			redirect(`/${type.toLowerCase()}/${value}`);
-			break;
-		}
-		case 'Init': {
-			break;
-		}
-		default: {
-			redirect(`/${type.toLowerCase()}`);
-		}
-	}
-
+const NavigationBar: React.FC = () => {
+	const item = useNavigationData();
 	return (
 		<Separator
 			styles={{
