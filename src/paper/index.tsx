@@ -10,7 +10,7 @@ import {
 } from 'office-ui-fabric-react';
 import { match } from 'react-router';
 import { Loading, redirect, styles as commonStyles } from 'common';
-import { dataStore as navigationDataStore } from 'breadcrumb';
+import { dataStore as navigationDataStore } from 'navigation';
 
 const Code = React.lazy(() =>
 	import('./code').then(({ Code }) => ({ default: Code }))

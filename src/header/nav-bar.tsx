@@ -6,7 +6,7 @@ import {
 	ICommandBarItemProps
 } from 'office-ui-fabric-react';
 import { getTags } from 'common';
-import { dataStore as navigationDataStore } from 'breadcrumb';
+import { dataStore as navigationDataStore } from 'navigation';
 
 const createNavItem = (name: string, iconName: string) => ({
 	key: name,

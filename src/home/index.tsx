@@ -4,7 +4,7 @@ import { PaperInfoBar } from './bar';
 import { Page } from './page';
 import { queryPaperInfos, PaperInfo } from 'services';
 import { redirect, styles as commonStyles } from 'common';
-import { dataStore as navigationDataStore } from 'breadcrumb';
+import { dataStore as navigationDataStore } from 'navigation';
 
 interface TitleProps {
 	text: string;

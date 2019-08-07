@@ -2,7 +2,7 @@ import React from 'react';
 import 'icon';
 import Header from 'header';
 import Router from 'router';
-import NavigationBar from 'breadcrumb';
+import NavigationBar from 'navigation';
 
 const App: React.FC = () => {
 	return (
