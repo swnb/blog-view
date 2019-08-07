@@ -1,10 +1,11 @@
 import React from 'react';
 import { CommandBar } from './nav-bar';
 import { SearchBox } from './search';
+import { styles as commonStyles } from 'common';
 
 const styles = {
 	header: {
-		width: '77%',
+		...commonStyles.header,
 		height: '50px',
 		margin: 'auto',
 		display: 'flex',

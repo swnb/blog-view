@@ -6,6 +6,7 @@ import {
 	IDividerAsProps
 } from 'office-ui-fabric-react';
 import { Store } from 'store';
+import { styles as commonStyles } from 'common';
 
 interface NavigationType {
 	type: 'Tag' | 'About' | 'Paper' | 'Archive' | 'Home';
@@ -46,6 +47,12 @@ const NavigationBar: React.FC = () => {
 
 	return (
 		<Breadcrumb
+			styles={{
+				root: {
+					...commonStyles.body,
+					margin: '20px auto 0'
+				}
+			}}
 			items={item}
 			maxDisplayedItems={2}
 			overflowIndex={0}

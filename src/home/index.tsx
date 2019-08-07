@@ -4,6 +4,7 @@ import { redirect } from 'common';
 import { PaperInfoBar } from './bar';
 import { Page } from './page';
 import { queryPaperInfos, PaperInfo } from 'services';
+import { styles as commonStyles } from 'common';
 
 interface TitleProps {
 	text: string;
@@ -63,8 +64,8 @@ interface HomeState {
 export class Home extends React.Component<{}, HomeState> {
 	private styles = {
 		article: {
-			width: '70%',
-			margin: '50px auto'
+			...commonStyles.body,
+			margin: 'auto'
 		}
 	};
 

@@ -9,10 +9,10 @@ import {
 	MessageBar
 } from 'office-ui-fabric-react';
 import { match } from 'react-router';
-import { Loading, redirect } from 'common';
+import { Loading, redirect, styles as commonStyles } from 'common';
 
 const Code = React.lazy(() =>
-	import('./code').then(({ Code, Pre }) => ({ default: Code }))
+	import('./code').then(({ Code }) => ({ default: Code }))
 );
 const Pre = React.lazy(() =>
 	import('./code').then(({ Pre }) => ({ default: Pre }))
@@ -167,9 +167,8 @@ interface PaperState {
 export class Paper extends React.Component<PaperProps, PaperState> {
 	private styles = {
 		article: {
-			width: '70%',
-			margin: '50px auto',
-			maxWidth: '1024px'
+			...commonStyles.body,
+			margin: 'auto'
 		}
 	};
 
