@@ -6,6 +6,7 @@ import {
 	ICommandBarItemProps
 } from 'office-ui-fabric-react';
 import { getTags, redirect } from 'common';
+import { dataStore as navigationDataStore } from 'breadcrumb';
 
 const createNavItem = (name: string, iconName: string) => ({
 	key: name,
@@ -53,12 +54,16 @@ class CommandBar extends React.Component {
 	private home = (): ICommandBarItemProps => {
 		const name = 'Home';
 		const iconName = 'Home';
-		const onClick = () => {
-			redirect('/home');
-		};
+
 		return {
 			...createNavItem(name, iconName),
-			onClick
+			onClick() {
+				navigationDataStore.set({
+					type: 'Home',
+					value: ''
+				});
+				redirect('/home');
+			}
 		};
 	};
 
@@ -66,10 +71,15 @@ class CommandBar extends React.Component {
 	private about = (): ICommandBarItemProps => {
 		const name = 'About';
 		const iconName = 'Contact';
-		const onClick = () => {};
+
 		return {
 			...createNavItem(name, iconName),
-			onClick
+			onClick() {
+				navigationDataStore.set({
+					type: 'About',
+					value: 'Swnb'
+				});
+			}
 		};
 	};
 
@@ -77,21 +87,32 @@ class CommandBar extends React.Component {
 	private tags = (): ICommandBarItemProps => {
 		const name = 'Tags';
 		const iconName = 'Tag';
-		const onClick = () => {};
-		const items = getTags().map(({ name, iconName }) =>
-			createNavItem(name, iconName)
-		);
+
+		const items = getTags().map(({ name, iconName }) => ({
+			...createNavItem(name, iconName),
+			onClick() {
+				navigationDataStore.set({
+					type: 'Tag',
+					value: name
+				});
+			}
+		}));
 
 		return {
 			...createNavItem(name, iconName),
-			onClick,
 			subMenuProps: { items }
 		};
 	};
 
 	private archive = (): ICommandBarItemProps => {
 		return {
-			...createNavItem('Archive', 'Archive')
+			...createNavItem('Archive', 'Archive'),
+			onClick() {
+				navigationDataStore.set({
+					type: 'Archive',
+					value: ''
+				});
+			}
 		};
 	};
 }
