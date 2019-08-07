@@ -5,6 +5,7 @@ import { PaperInfoBar } from './bar';
 import { Page } from './page';
 import { queryPaperInfos, PaperInfo } from 'services';
 import { styles as commonStyles } from 'common';
+import { dataStore as navigationDataStore } from 'breadcrumb/index';
 
 interface TitleProps {
 	text: string;
@@ -19,7 +20,12 @@ class Title extends React.Component<TitleProps, {}> {
 	};
 
 	private onClick = () => {
-		redirect(this.props.link);
+		const { link, text } = this.props;
+		navigationDataStore.set({
+			type: 'Paper',
+			value: text
+		});
+		redirect(link);
 	};
 
 	public render = () => {
