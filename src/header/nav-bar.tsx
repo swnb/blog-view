@@ -5,7 +5,7 @@ import {
 	IButtonProps,
 	ICommandBarItemProps
 } from 'office-ui-fabric-react';
-import { getTags, redirect } from 'common';
+import { getTags } from 'common';
 import { dataStore as navigationDataStore } from 'breadcrumb';
 
 const createNavItem = (name: string, iconName: string) => ({
@@ -62,7 +62,6 @@ class CommandBar extends React.Component {
 					type: 'Home',
 					value: ''
 				});
-				redirect('/home');
 			}
 		};
 	};

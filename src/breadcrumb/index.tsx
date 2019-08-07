@@ -7,11 +7,12 @@ import {
 	Separator
 } from 'office-ui-fabric-react';
 import { Store } from 'store';
-import { styles as commonStyles } from 'common';
+import { styles as commonStyles, redirect } from 'common';
 
 interface NavigationType {
 	type: 'Tag' | 'About' | 'Paper' | 'Archive' | 'Home';
 	value: string;
+	paperLink?: string;
 }
 
 export const dataStore = new Store<NavigationType>();
@@ -23,7 +24,7 @@ const NavigationBar: React.FC = () => {
 		type: 'Home',
 		value: ''
 	} as NavigationType);
-	const { type, value } = navigationData;
+	const { type, value, paperLink } = navigationData;
 	React.useEffect(() => {
 		dataStore.subscribe(navigationData => {
 			setNavigationData(navigationData);
@@ -43,6 +44,20 @@ const NavigationBar: React.FC = () => {
 		default: {
 			item = [{ text: type, key: type }, { text: value, key: value }];
 			break;
+		}
+	}
+
+	switch (type) {
+		case 'Paper': {
+			redirect(paperLink as string);
+			break;
+		}
+		case 'Tag': {
+			redirect(`/${type.toLowerCase()}/${value}`);
+			break;
+		}
+		default: {
+			redirect(`/${type.toLowerCase()}`);
 		}
 	}
 

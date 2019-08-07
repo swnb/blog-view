@@ -22,9 +22,9 @@ class Title extends React.Component<TitleProps, {}> {
 		const { link, text } = this.props;
 		navigationDataStore.set({
 			type: 'Paper',
-			value: text
+			value: text,
+			paperLink: link
 		});
-		redirect(link);
 	};
 
 	public render = () => {
