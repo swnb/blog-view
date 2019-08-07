@@ -10,7 +10,7 @@ import { Store } from 'store';
 import { styles as commonStyles, redirect } from 'common';
 
 interface NavigationType {
-	type: 'Tag' | 'About' | 'Paper' | 'Archive' | 'Home';
+	type: 'Tag' | 'About' | 'Paper' | 'Archive' | 'Home' | 'Init';
 	value: string;
 	paperLink?: string;
 }
@@ -21,7 +21,7 @@ function useNavigationData() {}
 
 const NavigationBar: React.FC = () => {
 	const [navigationData, setNavigationData] = React.useState({
-		type: 'Home',
+		type: 'Init',
 		value: ''
 	} as NavigationType);
 	const { type, value, paperLink } = navigationData;
@@ -56,6 +56,9 @@ const NavigationBar: React.FC = () => {
 			redirect(`/${type.toLowerCase()}/${value}`);
 			break;
 		}
+		case 'Init': {
+			break;
+		}
 		default: {
 			redirect(`/${type.toLowerCase()}`);
 		}
@@ -76,28 +79,5 @@ const NavigationBar: React.FC = () => {
 };
 
 const returnUndefined = () => undefined;
-
-function _onBreadcrumbItemClicked(
-	ev?: React.MouseEvent<HTMLElement>,
-	item?: IBreadcrumbItem
-): void {
-	if (item) {
-		console.log(`Breadcrumb item with key "${item.key}" has been clicked.`);
-	}
-}
-
-function _getCustomDivider(dividerProps: IDividerAsProps): JSX.Element {
-	const tooltipText = dividerProps.item ? dividerProps.item.text : '';
-	return (
-		<TooltipHost
-			content={`Show ${tooltipText} contents`}
-			calloutProps={{ gapSpace: 0 }}
-		>
-			<span aria-hidden="true" style={{ cursor: 'pointer' }}>
-				/
-			</span>
-		</TooltipHost>
-	);
-}
 
 export default NavigationBar;

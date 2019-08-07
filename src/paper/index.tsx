@@ -10,6 +10,7 @@ import {
 } from 'office-ui-fabric-react';
 import { match } from 'react-router';
 import { Loading, redirect, styles as commonStyles } from 'common';
+import { dataStore as navigationDataStore } from 'breadcrumb';
 
 const Code = React.lazy(() =>
 	import('./code').then(({ Code }) => ({ default: Code }))
@@ -158,7 +159,7 @@ export const renderElements = (
 };
 
 interface PaperProps {
-	match: match<{ id: string }>;
+	match: match<{ name: string; id: string }>;
 }
 interface PaperState {
 	isReady: boolean;
@@ -177,7 +178,15 @@ export class Paper extends React.Component<PaperProps, PaperState> {
 	};
 
 	public componentWillMount = async () => {
-		const paperID = this.props.match.params.id;
+		const {
+			params: { name, id: paperID },
+			url: paperLink
+		} = this.props.match;
+		navigationDataStore.set({
+			type: 'Paper',
+			value: name,
+			paperLink
+		});
 		try {
 			const structure = await queryPaperContent(paperID);
 			this.setState({ structure, isReady: true });

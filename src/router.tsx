@@ -12,7 +12,7 @@ const Router: React.FC = () => {
 			<Switch>
 				<Redirect exact from="/" to="/home" />
 				<Route path="/home" component={Home} />
-				<Route path="/paper/:id" component={Paper} />
+				<Route path="/paper/:name/:id" component={Paper} />
 				<Route path="/about" component={About} />
 				<Route path="/archive" component={Archive} />
 				<Route component={NotFound} />

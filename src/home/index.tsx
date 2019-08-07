@@ -56,7 +56,7 @@ const Item = ({
 }: ItemProps) => {
 	return (
 		<section style={{ marginBottom: '20px' }}>
-			<Title text={title} link={`/paper/${id}`} />
+			<Title text={title} link={`/paper/${title}/${id}`} />
 			<PaperInfoBar tags={tags} tracks={change_records} />
 			<Text>`some content is simple to see how to do this works `</Text>
 		</section>
@@ -80,6 +80,10 @@ export class Home extends React.Component<{}, HomeState> {
 	};
 
 	public componentWillMount = async () => {
+		navigationDataStore.set({
+			type: 'Home',
+			value: ''
+		});
 		await this.setPapersWithPageIndex(1);
 	};
 
