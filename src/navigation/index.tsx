@@ -46,21 +46,21 @@ function type2redirect({ type, value, paperLink }: NavigationType) {
 	}
 }
 
+const defaultData: NavigationType = {
+	type: 'Init',
+	value: ''
+};
+
 const getInitData = (): NavigationType => {
-	let initData = dataStore.get();
-	return initData
-		? initData
-		: {
-				type: 'Init',
-				value: ''
-		  };
+	const initData = dataStore.get();
+	return initData ? initData : defaultData;
 };
 
 function useNavigationData() {
-	const [navigationData, setNavigationData] = React.useState(getInitData());
-	const scope = dataStore.clone();
+	const [navigationData, setNavigationData] = React.useState(getInitData);
 	React.useEffect(() => {
 		setNavigationData(getInitData());
+		const scope = dataStore.clone();
 		scope.subscribe(navigationData => {
 			setNavigationData(navigationData);
 		});
@@ -83,7 +83,11 @@ const NavigationBar: React.FC = () => {
 			}}
 			alignContent="start"
 		>
-			<Breadcrumb onReduceData={returnUndefined} items={item} />
+			<Breadcrumb
+				styles={{ root: { margin: '10px' } }}
+				onReduceData={returnUndefined}
+				items={item}
+			/>
 		</Separator>
 	);
 };
