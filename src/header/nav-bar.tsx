@@ -5,7 +5,7 @@ import {
 	IButtonProps,
 	ICommandBarItemProps
 } from 'office-ui-fabric-react';
-import { getTags } from 'common/tags';
+import { getTags, redirect } from 'common';
 
 const createNavItem = (name: string, iconName: string) => ({
 	key: name,
@@ -30,7 +30,6 @@ class CommandBar extends React.Component {
 			width: '70%'
 		}
 	};
-
 	public render = () => {
 		const { icon, home, about, tags, archive, styles } = this;
 
@@ -54,7 +53,9 @@ class CommandBar extends React.Component {
 	private home = (): ICommandBarItemProps => {
 		const name = 'Home';
 		const iconName = 'Home';
-		const onClick = () => {};
+		const onClick = () => {
+			redirect('/home');
+		};
 		return {
 			...createNavItem(name, iconName),
 			onClick

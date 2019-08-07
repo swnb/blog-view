@@ -3,7 +3,6 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Home } from 'home';
 import { Paper } from './paper';
 import { NotFound } from './not-found';
-import './App.css';
 
 const Router: React.FC = () => {
 	return (
