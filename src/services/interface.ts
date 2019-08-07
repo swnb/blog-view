@@ -38,3 +38,8 @@ export interface PaperInfo {
 	change_records: string[];
 	tags: string[];
 }
+
+export interface PaperInfoList {
+	page_size: number;
+	paper_info_list: PaperInfo[],
+}

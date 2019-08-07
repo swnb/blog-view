@@ -80,7 +80,7 @@ export class Home extends React.Component<{}, HomeState> {
 
 	public componentDidMount = async () => {
 		try {
-			const papers = await queryPaperInfos(1);
+			const { paper_info_list: papers } = await queryPaperInfos(1);
 			this.setState({ papers });
 		} catch (error) {
 			console.error(error);

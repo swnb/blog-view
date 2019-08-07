@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { protol, host } from './link';
-import { Response, PaperStructure, PaperInfo } from './interface';
+import { Response, PaperStructure, PaperInfoList } from './interface';
 const { get } = axios;
 
 const concatURL = (path: string) => `${protol}://${host}${path}`
@@ -19,7 +19,7 @@ export const queryPaperContent = async (paperID: string) => {
 // paper info data struct
 export const queryPaperInfos = async (page: number) => {
 	const { data: response } = await get(concatURL(`/api/v1/blog/get/paper/infos/${page}`));
-	const { code, data, detail } = response as Response<PaperInfo[]>
+	const { code, data, detail } = response as Response<PaperInfoList>
 	if (code === 0) {
 		return data
 	} else {
