@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Link, Icon, Stack } from 'office-ui-fabric-react';
+import { Text, Link, Stack } from 'office-ui-fabric-react';
 import { styles } from 'common';
 import { dataStore as navigationDataStore } from 'navigation';
 
