@@ -24,19 +24,25 @@ const DirectButton = ({ iconName, onClick }: DirectButtonProps) => (
 	/>
 );
 
-interface PageProps {
+interface PaginationProps {
 	onPageSelected(index: number): void;
 	size: number;
 }
-interface PageState {
+interface PaginationState {
 	currentIndex: string;
 }
-export class Page extends React.Component<PageProps, PageState> {
-	public state: PageState = {
+export class Pagination extends React.Component<
+	PaginationProps,
+	PaginationState
+> {
+	public state: PaginationState = {
 		currentIndex: '1'
 	};
 
-	public componentDidUpdate = (_: PageProps, preStata: PageState) => {
+	public componentDidUpdate = (
+		_: PaginationProps,
+		preStata: PaginationState
+	) => {
 		const { onPageSelected } = this.props;
 		const { currentIndex } = this.state;
 		if (currentIndex !== preStata.currentIndex) {

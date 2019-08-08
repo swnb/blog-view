@@ -1,9 +1,12 @@
 import React from 'react';
 import { Text, Separator, Link } from 'office-ui-fabric-react';
-import { PaperInfoBar } from './bar';
-import { Page } from './page';
 import { queryPaperInfos, PaperInfo } from 'services';
-import { redirect, styles as commonStyles } from 'common';
+import {
+	redirect,
+	styles as commonStyles,
+	Pagination,
+	PaperInfoBar
+} from 'common';
 import { dataStore as navigationDataStore } from 'navigation';
 
 interface TitleProps {
@@ -101,7 +104,7 @@ export class Home extends React.Component<{}, HomeState> {
 						<Item {...ele} key={ele.id} />
 					))}
 				</article>
-				<Page onPageSelected={setPapersWithPageIndex} size={pageSize} />
+				<Pagination onPageSelected={setPapersWithPageIndex} size={pageSize} />
 			</>
 		);
 	};
