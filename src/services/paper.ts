@@ -27,3 +27,17 @@ export const queryPaperInfos = async (page: number) => {
 	}
 }
 
+export const queryPaperInfosByTags = async (tags: string[], index: number) => {
+	const { data: response } = await get(concatURL(`/api/v1/blog/get/paper/tags/${index}`), {
+		params: {
+			tags: tags.join(','),
+		}
+	});
+	const { code, data, detail } = response as Response<PaperInfoList>
+	if (code === 0) {
+		return data
+	} else {
+		throw Error(detail);
+	}
+}
+
