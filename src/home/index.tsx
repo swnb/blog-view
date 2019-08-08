@@ -82,7 +82,7 @@ export class Home extends React.Component<{}, HomeState> {
 		pageSize: 0
 	};
 
-	public componentWillMount = async () => {
+	public componentDidMount = async () => {
 		navigationDataStore.set({
 			type: 'Home',
 			value: ''

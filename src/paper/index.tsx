@@ -177,7 +177,7 @@ export class Paper extends React.Component<PaperProps, PaperState> {
 		structure: [] as PaperStructure[]
 	};
 
-	public componentWillMount = async () => {
+	public componentDidMount = async () => {
 		const {
 			params: { name, id: paperID },
 			url: paperLink
