@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { protol, host } from './link';
+import { concatURL } from './link';
 import { Response, PaperStructure, PaperInfoList } from './interface';
 const { get } = axios;
-
-const concatURL = (path: string) => `${protol}://${host}${path}`
 
 // query paper content json structure by paper id
 export const queryPaperContent = async (paperID: string) => {
