@@ -8,10 +8,11 @@ export const authorization = async (authCode: string = "") => {
 	const { data: response } = await get(concatURL(`/api/v1/blog/auth`), {
 		params: { "code": authCode }
 	});
-	const { data, code, detail } = response as Response<string>;
-	if (code === 0) {
-		return data;
-	} else {
-		throw Error(`error happend ${detail}`);
-	}
+	return response as Response<string>;
+}
+
+export const checkAuthInit = async () => {
+	const { data: response } = await get(concatURL(`/api/v1/blog/check-auth-init`));
+	const { code, data } = response as Response<boolean>;
+	return code === 0 && data
 }

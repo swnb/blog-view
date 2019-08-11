@@ -1,7 +1,7 @@
 import React from 'react';
-import { authorization } from 'services';
+import { authorization, checkAuthInit } from 'services';
 import { MaskedTextField } from 'office-ui-fabric-react';
-import { styles } from 'common';
+import { styles, redirect } from 'common';
 
 const maskFormat: { [key: string]: RegExp } = {
 	'*': /[0-9]/
@@ -16,24 +16,34 @@ export class Auth extends React.PureComponent<{}, AuthState> {
 	};
 
 	private onInputChange = async (
-		ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+		_: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
 		newV?: string
 	) => {
 		if (newV && !newV.endsWith('-')) {
-			await authorization(newV);
+			try {
+				const { code, detail } = await authorization(newV);
+				redirect('/home');
+			} catch (error) {
+				redirect('/not-found');
+			}
 		}
 	};
 
 	public componentDidMount = async () => {
 		try {
-			const response = await authorization();
-			console.log(response);
-			const currentDom = this.googleAuthRef.current;
-			if (currentDom) {
-				currentDom.innerHTML = response;
+			if (await checkAuthInit()) {
+				this.setState({ showCodeInput: true });
+			} else {
+				const { code, data } = await authorization();
+				if (code === 0) {
+					const currentDom = this.googleAuthRef.current;
+					if (currentDom) {
+						currentDom.innerHTML = data;
+					}
+				}
 			}
 		} catch (error) {
-			this.setState({ showCodeInput: true });
+			redirect('/not-found');
 		}
 	};
 
