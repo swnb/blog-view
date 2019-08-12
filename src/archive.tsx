@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Separator, Link } from 'office-ui-fabric-react';
-import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
-import { Stack, IStackTokens } from 'office-ui-fabric-react/lib/Stack';
-import { Text } from 'office-ui-fabric-react/lib/Text';
+import {
+	Separator,
+	Link,
+	mergeStyles,
+	Stack,
+	IStackTokens,
+	Text
+} from 'office-ui-fabric-react';
 import { styles } from 'common';
 import { queryArchive, PaperInfo } from 'services';
 
