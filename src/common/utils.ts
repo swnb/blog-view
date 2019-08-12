@@ -19,3 +19,11 @@ export const parseDateTime = (datetime: string): DateTime | undefined => {
 	}
 }
 
+export const parseDate = (date: string): Date | undefined => {
+	const result = parseDateTime(date);
+	if (result) {
+		const { year, month, day, hour, minute, second } = result;
+		return new Date(year, month - 1, day, hour, minute, second);
+	}
+}
+

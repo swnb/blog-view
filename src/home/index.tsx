@@ -5,7 +5,8 @@ import {
 	redirect,
 	styles as commonStyles,
 	Pagination,
-	PaperInfoBar
+	PaperInfoBar,
+	parseDate
 } from 'common';
 import { dataStore as navigationDataStore } from 'navigation';
 
@@ -60,7 +61,11 @@ const Item = ({
 	return (
 		<section style={{ marginBottom: '20px' }}>
 			<Title text={title} link={`/paper/${title}/${id}`} />
-			<PaperInfoBar tags={tags} tracks={change_records} />
+			<PaperInfoBar
+				tags={tags}
+				tracks={change_records}
+				date={parseDate(create_at)!}
+			/>
 			<Text>`some content is simple to see how to do this works `</Text>
 		</section>
 	);
