@@ -5,5 +5,9 @@ jobs:
     name: echo
     runs-on: ubuntu-latest
     steps: 
+    - uses: ./echo-action
+      with:
+        who: "Some body"
+      id: "id"
     - run: echo "project init"
 
