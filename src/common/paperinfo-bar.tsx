@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getTags } from 'common/tags';
+import { getTags, Calendar } from 'common';
 import { CommandBarButton } from 'office-ui-fabric-react';
 
 const tagItemsFilter = (tags: string[]) =>
@@ -20,16 +20,17 @@ const trackItems = (tracks: string[]) =>
 interface PaperInfoBarProps {
 	tags: string[];
 	tracks: string[];
+	date: Date;
 }
 export class PaperInfoBar extends React.Component<PaperInfoBarProps, {}> {
 	public render = () => {
 		const {
-			props: { tags, tracks }
+			props: { tags, tracks, date }
 		} = this;
 
 		return (
 			<div style={{ display: 'flex', alignItems: 'stretch', height: '44px' }}>
-				<CommandBarButton iconProps={{ iconName: 'DateTime' }} text="date" />
+				<Calendar date={date} />
 				<CommandBarButton
 					iconProps={{ iconName: 'Trackers' }}
 					text="record"

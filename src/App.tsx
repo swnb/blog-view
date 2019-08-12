@@ -3,6 +3,7 @@ import 'icon';
 import Header from 'header';
 import Router from 'router';
 import NavigationBar from 'navigation';
+import { Footer } from 'footer';
 
 const App: React.FC = () => {
 	return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
 			<Header />
 			<NavigationBar />
 			<Router />
+			<Footer />
 		</>
 	);
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, Separator, Link } from 'office-ui-fabric-react';
-import { queryPaperInfos, PaperInfo } from 'services';
+import { PaperInfo, queryPaperInfosByTags } from 'services';
+import { match } from 'react-router';
 import {
 	redirect,
 	styles as commonStyles,
@@ -71,28 +72,23 @@ const Item = ({
 	);
 };
 
-interface HomeState {
+interface TagProps {
+	match: match<{ name: string }>;
+}
+interface TagState {
 	papers: PaperInfo[];
 	pageSize: number;
 }
-export class Home extends React.Component<{}, HomeState> {
+export class Tag extends React.PureComponent<TagProps, TagState> {
 	private styles = {
 		article: {
 			...commonStyles.body
 		}
 	};
 
-	public state: HomeState = {
+	public state: TagState = {
 		papers: [],
 		pageSize: 0
-	};
-
-	public componentDidMount = async () => {
-		navigationDataStore.set({
-			type: 'Home',
-			value: ''
-		});
-		await this.setPapersWithPageIndex(1);
 	};
 
 	public render = () => {
@@ -114,12 +110,35 @@ export class Home extends React.Component<{}, HomeState> {
 		);
 	};
 
+	public componentDidMount = async () => {
+		const { name } = this.props.match.params;
+		navigationDataStore.set({
+			type: 'Tag',
+			value: name
+		});
+		await this.setPapersWithPageIndex(1);
+	};
+
+	public componentDidUpdate = async (preProps: TagProps) => {
+		const preName = preProps.match.params.name;
+		const curName = this.props.match.params.name;
+		if (preName !== curName) {
+			// when props update
+			navigationDataStore.set({
+				type: 'Tag',
+				value: curName
+			});
+			await this.setPapersWithPageIndex(1);
+		}
+	};
+
 	private setPapersWithPageIndex = async (index: number) => {
+		const { name } = this.props.match.params;
 		try {
 			const {
 				paper_info_list: papers,
 				page_size: pageSize
-			} = await queryPaperInfos(index);
+			} = await queryPaperInfosByTags([name], index);
 			this.setState({ papers, pageSize });
 		} catch (error) {
 			console.error(error);

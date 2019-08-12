@@ -5,6 +5,8 @@ import { Paper } from './paper';
 import { NotFound } from './not-found';
 import About from 'about';
 import Archive from 'archive';
+import { Auth } from 'auth';
+import { Tag } from 'tag';
 
 const Router: React.FC = () => {
 	return (
@@ -14,7 +16,9 @@ const Router: React.FC = () => {
 				<Route path="/home" component={Home} />
 				<Route path="/paper/:name/:id" component={Paper} />
 				<Route path="/about" component={About} />
+				<Route path="/tag/:name" component={Tag} />
 				<Route path="/archive" component={Archive} />
+				<Route path="/auth" component={Auth} />
 				<Route component={NotFound} />
 			</Switch>
 		</HashRouter>
