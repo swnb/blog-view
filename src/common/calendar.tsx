@@ -4,9 +4,9 @@ import {
 	Calendar as FabricCalendar,
 	DayOfWeek,
 	DirectionalHint,
-	CommandBarButton
+	CommandBarButton,
+	FocusTrapZone
 } from 'office-ui-fabric-react';
-import { FocusTrapZone } from 'office-ui-fabric-react/lib/FocusTrapZone';
 
 const DayPickerStrings = {
 	months: [
@@ -49,15 +49,12 @@ export interface CalendarProps {
 	date: Date;
 }
 
-export interface ICalendarButtonExampleState {
+export interface CalendarState {
 	showCalendar: boolean;
 	selectedDate: Date | null;
 }
 
-export class Calendar extends React.Component<
-	CalendarProps,
-	ICalendarButtonExampleState
-> {
+export class Calendar extends React.Component<CalendarProps, CalendarState> {
 	private styles = {
 		mid: {
 			display: 'flex',
@@ -101,18 +98,16 @@ export class Calendar extends React.Component<
 				{this.state.showCalendar && (
 					<Callout
 						isBeakVisible={false}
-						className="ms-DatePicker-callout"
 						gapSpace={0}
 						doNotLayer={false}
 						target={this.calendarButtonElement}
 						directionalHint={DirectionalHint.bottomLeftEdge}
 						onDismiss={this.onDismiss}
-						setInitialFocus={true}
 					>
 						<FocusTrapZone isClickableOutsideFocusTrap={true}>
 							<FabricCalendar
-								onSelectDate={this.onSelectDate}
 								onDismiss={this.onDismiss}
+								today={date}
 								value={date}
 								firstDayOfWeek={DayOfWeek.Sunday}
 								strings={DayPickerStrings}
@@ -131,25 +126,10 @@ export class Calendar extends React.Component<
 	}
 
 	private onClick = (): void => {
-		this.setState((prevState: ICalendarButtonExampleState) => {
-			prevState.showCalendar = !prevState.showCalendar;
-			return prevState;
-		});
+		this.setState(({ showCalendar }) => ({ showCalendar: !showCalendar }));
 	};
 
-	private onDismiss = (): void => {
-		this.setState((prevState: ICalendarButtonExampleState) => {
-			prevState.showCalendar = false;
-			return prevState;
-		});
-	};
-
-	private onSelectDate = (date: Date): void => {
-		console.log(date);
-		// this.setState((prevState: ICalendarButtonExampleState) => {
-		// 	prevState.showCalendar = false;
-		// 	prevState.selectedDate = date;
-		// 	return prevState;
-		// });
+	private onDismiss = () => {
+		this.setState({ showCalendar: false });
 	};
 }
