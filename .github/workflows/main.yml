@@ -1,0 +1,9 @@
+name: main config
+on: [push]
+jobs:
+  build:
+    name: echo
+    runs-on: ubuntu-latest
+    steps: 
+    - run: echo "project init"
+
