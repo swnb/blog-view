@@ -1,13 +1,11 @@
 import * as React from 'react';
 import {
-	CommandBarButton,
-	IButtonProps
-} from 'office-ui-fabric-react/lib/Button';
-import { Callout, DirectionalHint } from 'office-ui-fabric-react/lib/Callout';
-import {
+	Callout,
 	Calendar as FabricCalendar,
-	DayOfWeek
-} from 'office-ui-fabric-react/lib/Calendar';
+	DayOfWeek,
+	DirectionalHint,
+	CommandBarButton
+} from 'office-ui-fabric-react';
 import { FocusTrapZone } from 'office-ui-fabric-react/lib/FocusTrapZone';
 
 const DayPickerStrings = {

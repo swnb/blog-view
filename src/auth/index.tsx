@@ -21,7 +21,7 @@ export class Auth extends React.PureComponent<{}, AuthState> {
 	) => {
 		if (newV && !newV.endsWith('-')) {
 			try {
-				const { code, detail } = await authorization(newV);
+				await authorization(newV);
 				redirect('/home');
 			} catch (error) {
 				redirect('/not-found');
