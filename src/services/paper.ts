@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { concatURL } from './link';
-import { Response, PaperStructure, PaperInfoList } from './interface';
+import { Response, PaperStructure, PaperInfoList, PaperInfo } from './interface';
 const { get } = axios;
 
 // query paper content json structure by paper id
@@ -39,3 +39,12 @@ export const queryPaperInfosByTags = async (tags: string[], index: number) => {
 	}
 }
 
+export const queryArchive = async () => {
+	const { data: response } = await get(concatURL(`/api/v1/blog/get/archive`));
+	const { code, data, detail } = response as Response<PaperInfo[]>;
+	if (code === 0) {
+		return data
+	} else {
+		throw Error(detail)
+	}
+}
